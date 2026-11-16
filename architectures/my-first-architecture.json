@@ -5,6 +5,18 @@
   "description": "A customer authentication service that validates user credentials and manages session tokens.",
   "nodes": [
     {
+      "unique-id": "customer",
+      "node-type": "actor",
+      "name": "Customer",
+      "description": "An end user who uses the Customer Authentication Service."
+    },
+    {
+      "unique-id": "customer-authentication-system",
+      "node-type": "system",
+      "name": "Customer Authentication System",
+      "description": "The overall system that contains the Customer Authentication Service and its database."
+    },
+    {
       "unique-id": "customer-authentication-service",
       "node-type": "service",
       "name": "Customer Authentication Service",
@@ -28,6 +40,29 @@
           "destination": {
             "node": "customer-authentication-database"
           }
+        }
+      }
+    },
+    {
+      "unique-id": "customer-interacts-with-authentication-service",
+      "relationship-type": {
+        "interacts": {
+          "actor": "customer",
+          "nodes": [
+            "customer-authentication-service"
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "customer-authentication-system-composed-of-service-and-database",
+      "relationship-type": {
+        "composed-of": {
+          "container": "customer-authentication-system",
+          "nodes": [
+            "customer-authentication-service",
+            "customer-authentication-database"
+          ]
         }
       }
     }
