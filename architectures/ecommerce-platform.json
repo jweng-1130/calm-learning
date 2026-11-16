@@ -4,7 +4,10 @@
   "name": "E-Commerce Platform",
   "description": "A microservices-based e-commerce platform for processing customer orders.",
   "metadata": {
-    "owner": "ecommerce-platform-team@example.com",
+    "owner": "E-Commerce Platform Team",
+    "ownership-status": "placeholder; confirm the responsible team",
+    "repository": "https://example.com/ecommerce-platform",
+    "repository-status": "placeholder; replace with the actual repository",
     "version": "1.0.0",
     "created": "2026-11-16",
     "description": "E-commerce order processing platform",
@@ -19,25 +22,13 @@
       "unique-id": "customer",
       "node-type": "actor",
       "name": "Customer",
-      "description": "A customer who browses the store and places orders.",
-      "metadata": {
-        "owner": "E-Commerce Platform Team",
-        "repository": "https://example.com/ecommerce-platform",
-        "deployment-type": "external",
-        "sla-tier": "tier-2"
-      }
+      "description": "A customer who browses the store and places orders."
     },
     {
       "unique-id": "admin",
       "node-type": "actor",
       "name": "Admin",
-      "description": "An administrator who manages products, inventory, and orders.",
-      "metadata": {
-        "owner": "E-Commerce Platform Team",
-        "repository": "https://example.com/ecommerce-platform",
-        "deployment-type": "external",
-        "sla-tier": "tier-2"
-      }
+      "description": "An administrator who manages products, inventory, and orders."
     },
     {
       "unique-id": "ecommerce-platform",
@@ -48,7 +39,8 @@
         "owner": "E-Commerce Platform Team",
         "repository": "https://example.com/ecommerce-platform",
         "deployment-type": "containerized",
-        "sla-tier": "tier-1"
+        "sla-tier": "tier-1",
+        "repository-status": "placeholder; replace with the actual repository"
       }
     },
     {
@@ -62,14 +54,16 @@
           "protocol": "HTTPS",
           "host": "api.example.com",
           "port": 443,
-          "path": "/api/v1"
+          "path": "/api/v1",
+          "description": "Public HTTPS entry point for customer and administrator APIs."
         }
       ],
       "metadata": {
         "owner": "E-Commerce Platform Team",
         "repository": "https://example.com/ecommerce-platform",
         "deployment-type": "container",
-        "sla-tier": "tier-1"
+        "sla-tier": "tier-1",
+        "repository-status": "placeholder; replace with the actual repository"
       }
     },
     {
@@ -83,14 +77,24 @@
           "protocol": "HTTPS",
           "host": "orders.internal.example.com",
           "port": 8081,
-          "path": "/api/v1/orders"
+          "path": "/api/v1/orders",
+          "description": "Internal HTTPS API for creating and managing orders."
+        },
+        {
+          "unique-id": "order-service-order-database-jdbc",
+          "protocol": "JDBC",
+          "host": "orders-db.example.com",
+          "port": 5432,
+          "database": "orders",
+          "description": "Outbound JDBC connection to the Order Database."
         }
       ],
       "metadata": {
         "owner": "E-Commerce Platform Team",
         "repository": "https://example.com/ecommerce-platform",
         "deployment-type": "container",
-        "sla-tier": "tier-1"
+        "sla-tier": "tier-1",
+        "repository-status": "placeholder; replace with the actual repository"
       }
     },
     {
@@ -104,14 +108,24 @@
           "protocol": "HTTPS",
           "host": "inventory.internal.example.com",
           "port": 8082,
-          "path": "/api/v1/inventory"
+          "path": "/api/v1/inventory",
+          "description": "Internal HTTPS API for inventory lookup and reservation."
+        },
+        {
+          "unique-id": "inventory-service-inventory-database-jdbc",
+          "protocol": "JDBC",
+          "host": "inventory-db.example.com",
+          "port": 5432,
+          "database": "inventory",
+          "description": "Outbound JDBC connection to the Inventory Database."
         }
       ],
       "metadata": {
         "owner": "E-Commerce Platform Team",
         "repository": "https://example.com/ecommerce-platform",
         "deployment-type": "container",
-        "sla-tier": "tier-1"
+        "sla-tier": "tier-1",
+        "repository-status": "placeholder; replace with the actual repository"
       }
     },
     {
@@ -125,14 +139,16 @@
           "protocol": "HTTPS",
           "host": "payments.internal.example.com",
           "port": 8083,
-          "path": "/api/v1/payments"
+          "path": "/api/v1/payments",
+          "description": "Internal HTTPS API for authorizing and recording order payments."
         }
       ],
       "metadata": {
         "owner": "E-Commerce Platform Team",
         "repository": "https://example.com/ecommerce-platform",
         "deployment-type": "container",
-        "sla-tier": "tier-1"
+        "sla-tier": "tier-1",
+        "repository-status": "placeholder; replace with the actual repository"
       }
     },
     {
@@ -153,7 +169,8 @@
         "owner": "E-Commerce Platform Team",
         "repository": "https://example.com/ecommerce-platform",
         "deployment-type": "managed-database",
-        "sla-tier": "tier-1"
+        "sla-tier": "tier-1",
+        "repository-status": "placeholder; replace with the actual repository"
       }
     },
     {
@@ -174,13 +191,15 @@
         "owner": "E-Commerce Platform Team",
         "repository": "https://example.com/ecommerce-platform",
         "deployment-type": "managed-database",
-        "sla-tier": "tier-1"
+        "sla-tier": "tier-1",
+        "repository-status": "placeholder; replace with the actual repository"
       }
     }
   ],
   "relationships": [
     {
       "unique-id": "customer-interacts-with-api-gateway",
+      "description": "The customer sends store requests through the API Gateway.",
       "relationship-type": {
         "interacts": {
           "actor": "customer",
@@ -192,6 +211,7 @@
     },
     {
       "unique-id": "admin-interacts-with-api-gateway",
+      "description": "The administrator accesses platform functions through the API Gateway.",
       "relationship-type": {
         "interacts": {
           "actor": "admin",
@@ -202,7 +222,8 @@
       }
     },
     {
-      "unique-id": "ecommerce-platform-composed-of-services",
+      "unique-id": "ecommerce-platform-composed-of-components",
+      "description": "The E-Commerce Platform consists of its gateway, services, and databases.",
       "relationship-type": {
         "composed-of": {
           "container": "ecommerce-platform",
@@ -210,13 +231,16 @@
             "api-gateway",
             "order-service",
             "inventory-service",
-            "payment-service"
+            "payment-service",
+            "order-database",
+            "inventory-database"
           ]
         }
       }
     },
     {
       "unique-id": "api-gateway-routes-to-order-service",
+      "description": "The API Gateway forwards order requests to the Order Service.",
       "relationship-type": {
         "connects": {
           "source": {
@@ -232,10 +256,49 @@
             ]
           }
         }
+      },
+      "metadata": {
+        "latency-sla": "Illustrative target: p95 < 100ms over a rolling 5-minute window; confirm with service owner.",
+        "monitoring": [
+          "latency",
+          "error rate",
+          "availability"
+        ],
+        "circuit-breaker": true
+      }
+    },
+    {
+      "unique-id": "api-gateway-connects-to-inventory-service",
+      "description": "The API Gateway forwards inventory requests to the Inventory Service.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway",
+            "interfaces": [
+              "api-gateway-https"
+            ]
+          },
+          "destination": {
+            "node": "inventory-service",
+            "interfaces": [
+              "inventory-service-api"
+            ]
+          }
+        }
+      },
+      "metadata": {
+        "latency-sla": "Illustrative target: p95 < 100ms over a rolling 5-minute window; confirm with service owner.",
+        "monitoring": [
+          "latency",
+          "error rate",
+          "availability"
+        ],
+        "circuit-breaker": true
       }
     },
     {
       "unique-id": "order-service-connects-to-inventory-service",
+      "description": "The Order Service requests inventory availability and reservations for an order.",
       "relationship-type": {
         "connects": {
           "source": {
@@ -251,10 +314,20 @@
             ]
           }
         }
+      },
+      "metadata": {
+        "latency-sla": "Illustrative target: p95 < 100ms over a rolling 5-minute window; confirm with service owner.",
+        "monitoring": [
+          "latency",
+          "error rate",
+          "availability"
+        ],
+        "circuit-breaker": true
       }
     },
     {
       "unique-id": "order-service-connects-to-payment-service",
+      "description": "The Order Service sends payment requests to the Payment Service.",
       "relationship-type": {
         "connects": {
           "source": {
@@ -270,16 +343,26 @@
             ]
           }
         }
+      },
+      "metadata": {
+        "latency-sla": "Illustrative target: p95 < 100ms over a rolling 5-minute window; confirm with service owner.",
+        "monitoring": [
+          "latency",
+          "error rate",
+          "availability"
+        ],
+        "circuit-breaker": true
       }
     },
     {
       "unique-id": "order-service-connects-to-order-database",
+      "description": "The Order Service stores and retrieves order data in the Order Database.",
       "relationship-type": {
         "connects": {
           "source": {
             "node": "order-service",
             "interfaces": [
-              "order-service-api"
+              "order-service-order-database-jdbc"
             ]
           },
           "destination": {
@@ -289,16 +372,27 @@
             ]
           }
         }
+      },
+      "metadata": {
+        "latency-sla": "Illustrative target: p95 < 100ms over a rolling 5-minute window; confirm with service owner.",
+        "monitoring": [
+          "latency",
+          "error rate",
+          "availability"
+        ],
+        "circuit-breaker": false,
+        "failure-handling": "Use connection-pool limits, query timeouts, and bounded retries."
       }
     },
     {
       "unique-id": "inventory-service-connects-to-inventory-database",
+      "description": "The Inventory Service stores and retrieves stock data in the Inventory Database.",
       "relationship-type": {
         "connects": {
           "source": {
             "node": "inventory-service",
             "interfaces": [
-              "inventory-service-api"
+              "inventory-service-inventory-database-jdbc"
             ]
           },
           "destination": {
@@ -308,7 +402,56 @@
             ]
           }
         }
+      },
+      "metadata": {
+        "latency-sla": "Illustrative target: p95 < 100ms over a rolling 5-minute window; confirm with service owner.",
+        "monitoring": [
+          "latency",
+          "error rate",
+          "availability"
+        ],
+        "circuit-breaker": false,
+        "failure-handling": "Use connection-pool limits, query timeouts, and bounded retries."
       }
+    }
+  ],
+  "flows": [
+    {
+      "unique-id": "customer-order-processing",
+      "name": "Customer Order Processing",
+      "description": "Customer submits an order; the platform checks and reserves inventory, authorizes payment, and persists the order.",
+      "transitions": [
+        {
+          "relationship-unique-id": "customer-interacts-with-api-gateway",
+          "sequence-number": 1,
+          "description": "Customer submits an order request through the API Gateway."
+        },
+        {
+          "relationship-unique-id": "api-gateway-routes-to-order-service",
+          "sequence-number": 2,
+          "description": "The API Gateway forwards the order request to the Order Service."
+        },
+        {
+          "relationship-unique-id": "order-service-connects-to-inventory-service",
+          "sequence-number": 3,
+          "description": "The Order Service checks availability and requests an inventory reservation."
+        },
+        {
+          "relationship-unique-id": "inventory-service-connects-to-inventory-database",
+          "sequence-number": 4,
+          "description": "The Inventory Service reads and updates the inventory reservation."
+        },
+        {
+          "relationship-unique-id": "order-service-connects-to-payment-service",
+          "sequence-number": 5,
+          "description": "The Order Service requests payment authorization."
+        },
+        {
+          "relationship-unique-id": "order-service-connects-to-order-database",
+          "sequence-number": 6,
+          "description": "The Order Service persists the order and its processing status."
+        }
+      ]
     }
   ]
 }
