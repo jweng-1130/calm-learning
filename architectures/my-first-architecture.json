@@ -3,11 +3,22 @@
   "unique-id": "customer-authentication-architecture",
   "name": "Customer Authentication Architecture",
   "description": "A customer authentication service that validates user credentials and manages session tokens.",
+  "metadata": {
+    "owner": "Customer Authentication Team",
+    "version": "1.0.0",
+    "created": "2026-11-16",
+    "description": "An architecture for customer authentication, session management, and its supporting database.",
+    "tags": [
+      "learning",
+      "authentication",
+      "demo"
+    ]
+  },
   "nodes": [
     {
       "unique-id": "customer",
       "node-type": "actor",
-      "name": "Customer",
+      "name": "CustomerA",
       "description": "An end user who uses the Customer Authentication Service."
     },
     {
@@ -20,13 +31,37 @@
       "unique-id": "customer-authentication-service",
       "node-type": "service",
       "name": "Customer Authentication Service",
-      "description": "Validates user credentials and creates, verifies, and manages session tokens for authenticated customers."
+      "description": "Validates user credentials and creates, verifies, and manages session tokens for authenticated customers.",
+      "interfaces": [
+        {
+          "unique-id": "customer-authentication-api",
+          "protocol": "HTTPS",
+          "host": "api.example.com",
+          "port": 443,
+          "path": "/api/v1"
+        }
+      ],
+      "metadata": {
+        "tech-owner": "Customer Authentication Team",
+        "repository": "https://example.com/customer-authentication",
+        "deployment-type": "container",
+        "sla-tier": "tier-1"
+      }
     },
     {
       "unique-id": "customer-authentication-database",
       "node-type": "database",
       "name": "Customer Authentication Database",
-      "description": "Stores customer authentication and session data for the Customer Authentication Service."
+      "description": "Stores customer authentication and session data for the Customer Authentication Service.",
+      "interfaces": [
+        {
+          "unique-id": "customer-authentication-database-jdbc",
+          "protocol": "JDBC",
+          "host": "db.example.com",
+          "port": 5432,
+          "database": "customer_authentication"
+        }
+      ]
     }
   ],
   "relationships": [
@@ -47,6 +82,11 @@
             ]
           }
         }
+      },
+      "metadata": {
+        "latency-sla": "< 100ms",
+        "monitoring": true,
+        "circuit-breaker": true
       }
     },
     {
