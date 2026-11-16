@@ -35,10 +35,16 @@
       "relationship-type": {
         "connects": {
           "source": {
-            "node": "customer-authentication-service"
+            "node": "customer-authentication-service",
+            "interfaces": [
+              "customer-authentication-api"
+            ]
           },
           "destination": {
-            "node": "customer-authentication-database"
+            "node": "customer-authentication-database",
+            "interfaces": [
+              "customer-authentication-database-jdbc"
+            ]
           }
         }
       }
