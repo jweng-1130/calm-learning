@@ -1,0 +1,314 @@
+{
+  "$schema": "https://calm.finos.org/release/1.3/meta/calm.json",
+  "unique-id": "ecommerce-platform-architecture",
+  "name": "E-Commerce Platform",
+  "description": "A microservices-based e-commerce platform for processing customer orders.",
+  "metadata": {
+    "owner": "ecommerce-platform-team@example.com",
+    "version": "1.0.0",
+    "created": "2026-11-16",
+    "description": "E-commerce order processing platform",
+    "tags": [
+      "ecommerce",
+      "microservices",
+      "orders"
+    ]
+  },
+  "nodes": [
+    {
+      "unique-id": "customer",
+      "node-type": "actor",
+      "name": "Customer",
+      "description": "A customer who browses the store and places orders.",
+      "metadata": {
+        "owner": "E-Commerce Platform Team",
+        "repository": "https://example.com/ecommerce-platform",
+        "deployment-type": "external",
+        "sla-tier": "tier-2"
+      }
+    },
+    {
+      "unique-id": "admin",
+      "node-type": "actor",
+      "name": "Admin",
+      "description": "An administrator who manages products, inventory, and orders.",
+      "metadata": {
+        "owner": "E-Commerce Platform Team",
+        "repository": "https://example.com/ecommerce-platform",
+        "deployment-type": "external",
+        "sla-tier": "tier-2"
+      }
+    },
+    {
+      "unique-id": "ecommerce-platform",
+      "node-type": "system",
+      "name": "E-Commerce Platform",
+      "description": "The overall platform containing the e-commerce services.",
+      "metadata": {
+        "owner": "E-Commerce Platform Team",
+        "repository": "https://example.com/ecommerce-platform",
+        "deployment-type": "containerized",
+        "sla-tier": "tier-1"
+      }
+    },
+    {
+      "unique-id": "api-gateway",
+      "node-type": "service",
+      "name": "API Gateway",
+      "description": "The entry point that routes customer and administrator requests to platform services.",
+      "interfaces": [
+        {
+          "unique-id": "api-gateway-https",
+          "protocol": "HTTPS",
+          "host": "api.example.com",
+          "port": 443,
+          "path": "/api/v1"
+        }
+      ],
+      "metadata": {
+        "owner": "E-Commerce Platform Team",
+        "repository": "https://example.com/ecommerce-platform",
+        "deployment-type": "container",
+        "sla-tier": "tier-1"
+      }
+    },
+    {
+      "unique-id": "order-service",
+      "node-type": "service",
+      "name": "Order Service",
+      "description": "Creates and manages customer orders and coordinates inventory and payment processing.",
+      "interfaces": [
+        {
+          "unique-id": "order-service-api",
+          "protocol": "HTTPS",
+          "host": "orders.internal.example.com",
+          "port": 8081,
+          "path": "/api/v1/orders"
+        }
+      ],
+      "metadata": {
+        "owner": "E-Commerce Platform Team",
+        "repository": "https://example.com/ecommerce-platform",
+        "deployment-type": "container",
+        "sla-tier": "tier-1"
+      }
+    },
+    {
+      "unique-id": "inventory-service",
+      "node-type": "service",
+      "name": "Inventory Service",
+      "description": "Tracks product stock and reserves inventory for orders.",
+      "interfaces": [
+        {
+          "unique-id": "inventory-service-api",
+          "protocol": "HTTPS",
+          "host": "inventory.internal.example.com",
+          "port": 8082,
+          "path": "/api/v1/inventory"
+        }
+      ],
+      "metadata": {
+        "owner": "E-Commerce Platform Team",
+        "repository": "https://example.com/ecommerce-platform",
+        "deployment-type": "container",
+        "sla-tier": "tier-1"
+      }
+    },
+    {
+      "unique-id": "payment-service",
+      "node-type": "service",
+      "name": "Payment Service",
+      "description": "Authorizes and records payments for customer orders.",
+      "interfaces": [
+        {
+          "unique-id": "payment-service-api",
+          "protocol": "HTTPS",
+          "host": "payments.internal.example.com",
+          "port": 8083,
+          "path": "/api/v1/payments"
+        }
+      ],
+      "metadata": {
+        "owner": "E-Commerce Platform Team",
+        "repository": "https://example.com/ecommerce-platform",
+        "deployment-type": "container",
+        "sla-tier": "tier-1"
+      }
+    },
+    {
+      "unique-id": "order-database",
+      "node-type": "database",
+      "name": "Order Database",
+      "description": "Stores order records and their processing status.",
+      "interfaces": [
+        {
+          "unique-id": "order-database-jdbc",
+          "protocol": "JDBC",
+          "host": "orders-db.example.com",
+          "port": 5432,
+          "database": "orders"
+        }
+      ],
+      "metadata": {
+        "owner": "E-Commerce Platform Team",
+        "repository": "https://example.com/ecommerce-platform",
+        "deployment-type": "managed-database",
+        "sla-tier": "tier-1"
+      }
+    },
+    {
+      "unique-id": "inventory-database",
+      "node-type": "database",
+      "name": "Inventory Database",
+      "description": "Stores product inventory quantities and reservations.",
+      "interfaces": [
+        {
+          "unique-id": "inventory-database-jdbc",
+          "protocol": "JDBC",
+          "host": "inventory-db.example.com",
+          "port": 5432,
+          "database": "inventory"
+        }
+      ],
+      "metadata": {
+        "owner": "E-Commerce Platform Team",
+        "repository": "https://example.com/ecommerce-platform",
+        "deployment-type": "managed-database",
+        "sla-tier": "tier-1"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "unique-id": "customer-interacts-with-api-gateway",
+      "relationship-type": {
+        "interacts": {
+          "actor": "customer",
+          "nodes": [
+            "api-gateway"
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "admin-interacts-with-api-gateway",
+      "relationship-type": {
+        "interacts": {
+          "actor": "admin",
+          "nodes": [
+            "api-gateway"
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "ecommerce-platform-composed-of-services",
+      "relationship-type": {
+        "composed-of": {
+          "container": "ecommerce-platform",
+          "nodes": [
+            "api-gateway",
+            "order-service",
+            "inventory-service",
+            "payment-service"
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "api-gateway-routes-to-order-service",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway",
+            "interfaces": [
+              "api-gateway-https"
+            ]
+          },
+          "destination": {
+            "node": "order-service",
+            "interfaces": [
+              "order-service-api"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "unique-id": "order-service-connects-to-inventory-service",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "order-service",
+            "interfaces": [
+              "order-service-api"
+            ]
+          },
+          "destination": {
+            "node": "inventory-service",
+            "interfaces": [
+              "inventory-service-api"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "unique-id": "order-service-connects-to-payment-service",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "order-service",
+            "interfaces": [
+              "order-service-api"
+            ]
+          },
+          "destination": {
+            "node": "payment-service",
+            "interfaces": [
+              "payment-service-api"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "unique-id": "order-service-connects-to-order-database",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "order-service",
+            "interfaces": [
+              "order-service-api"
+            ]
+          },
+          "destination": {
+            "node": "order-database",
+            "interfaces": [
+              "order-database-jdbc"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "unique-id": "inventory-service-connects-to-inventory-database",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "inventory-service",
+            "interfaces": [
+              "inventory-service-api"
+            ]
+          },
+          "destination": {
+            "node": "inventory-database",
+            "interfaces": [
+              "inventory-database-jdbc"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
