@@ -9,7 +9,27 @@
       "node-type": "service",
       "name": "Customer Authentication Service",
       "description": "Validates user credentials and creates, verifies, and manages session tokens for authenticated customers."
+    },
+    {
+      "unique-id": "customer-authentication-database",
+      "node-type": "database",
+      "name": "Customer Authentication Database",
+      "description": "Stores customer authentication and session data for the Customer Authentication Service."
     }
   ],
-  "relationships": []
+  "relationships": [
+    {
+      "unique-id": "customer-authentication-service-connects-to-database",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "customer-authentication-service"
+          },
+          "destination": {
+            "node": "customer-authentication-database"
+          }
+        }
+      }
+    }
+  ]
 }
